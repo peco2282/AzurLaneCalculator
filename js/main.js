@@ -1,4 +1,4 @@
-const BASEPATH = "../data/";
+const BASEPATH = "./data/";
 
 function calcCalacterExp(_before, _after, _isUlutimate, _exp, _listJson) {
   let before = parseInt(document.getElementById(_before).value)
