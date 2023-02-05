@@ -30,6 +30,10 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <h2>レベル差による経験値量算出</h2>
+<p>ここでは、〇Lv から △Lv までの必要経験値量を算出します。</p>
+<p>UR・DR艦はチェックボックスにチェックしてください。</p>
+<p>before に最初の値を、 afterに到達させたいレベルを、それぞれ 0 ~ 125の範囲で数値で入力してください。</p>
+<br>
 <form>
   <table class="ch_table">
     <tbody>
@@ -59,7 +63,6 @@
   <div class="is_ur">
     <input class="is_ulutimate checkbox" id="is_ulutimate" type="checkbox">
     <label for="is_ulutimate"><strong>UR・DRキャラ？</strong></label>
-
   <br>
   <br>
   <label for="exp">
@@ -77,6 +80,9 @@
 <br>
 <br>
 <h2>目的経験値量に対する周回数</h2>
+<p>ここでは、集めたい経験値量を、指定海域で何周すればいいかの算出をします。</p>
+<p>旗艦を選択すると、1周を1.5倍して計算します。</p>
+<br>
 <form>
   <table class="details_table">
     <tr>
@@ -294,9 +300,9 @@
   </table>
   <br>
   <div class="is_ur">
-    <input class="checkbox" id="mvp" type="checkbox">
-    <label for="mvp">
-      <strong>UR・DRキャラ？</strong>
+    <input class="checkbox" id="flag_ship" type="checkbox">
+    <label for="flag_ship">
+      <strong>旗艦?</strong>
     </label>
   </div>
   <br>
@@ -339,7 +345,7 @@
   <br>
   <br>
   <input
-    onclick="loadJSONForFloat('float_select', 'want', 'float_ans', 'mvp')"
+    onclick="loadJSONForFloat('float_select', 'want', 'float_ans', 'flag_ship')"
     type="button"
     value="計算する"
   class="calc_button">

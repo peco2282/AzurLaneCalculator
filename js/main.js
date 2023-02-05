@@ -1,5 +1,13 @@
 const BASEPATH = "./data/";
 
+/**
+ *
+ * @param { string } _before
+ * @param { string } _after
+ * @param { string }  _isUlutimate
+ * @param { string } _exp
+ * @param { NodeListOf<Map<string, string>> } _listJson
+ */
 function calcCalacterExp(_before, _after, _isUlutimate, _exp, _listJson) {
   let before = parseInt(document.getElementById(_before).value)
   let after = parseInt(document.getElementById(_after).value)
@@ -18,19 +26,18 @@ function calcCalacterExp(_before, _after, _isUlutimate, _exp, _listJson) {
     if (before === level) least = parseInt(dict["Total"])
     if (level === after) most = parseInt(dict["Total"])
   })
-  if (isUlutimate) exp.value = ((most - least) * 1.2).toString()
-  else exp.value = (most - least).toString()
+  exp.value = isUlutimate ? ((most - least) * 1.2).toString() : (most - least).toString()
 }
 
 /**
  *
- * @param before string
- * @param after string
- * @param isUlutimate string
- * @param exp string
+ * @param { string } before
+ * @param { string } after
+ * @param { string } isUlutimate
+ * @param { string } exp
  * @type void
  */
-function loadJSONForCharacter(before, after, isUlutimate , exp) {
+function loadJSONForCharacter(before, after, isUlutimate, exp) {
   const jsonPath = BASEPATH + "character_exp.json"
   const request = new XMLHttpRequest()
   request.open("GET", jsonPath)
@@ -43,16 +50,24 @@ function loadJSONForCharacter(before, after, isUlutimate , exp) {
   }
 }
 
-function calcHowMany(_area, _json, _total, _name, _isMVP) {
-  const MVPValue = _isMVP ? 1.5: 1.0
 
+/**
+ *
+ * @param { string } _area
+ * @param { Map<string, string> } _json
+ * @param { number } _total
+ * @param { NodeListOf<HTMLElement> } _name
+ * @param { boolean } _isFlag
+ */
+function calcHowMany(_area, _json, _total, _name, _isFlag) {
+  const FlagValue = _isFlag ? 1.5 : 1.0
   const e1 = _json["▲1"]
   const e2 = _json["▲2"]
   const e3 = _json["▲3"]
   const eb = _json["ボス"]
   const time = parseInt(_json["回数"])
 
-  const total = parseInt(_total)
+  const total = parseInt(_total) / FlagValue
 
   let min, medium, max, boss
   // TODO MVPvalue
@@ -63,14 +78,21 @@ function calcHowMany(_area, _json, _total, _name, _isMVP) {
   console.log(time)
   _name[0].value = `${Math.ceil(min / time)} 周 (${min} 回)`
   _name[1].value = !isNaN(Math.ceil(medium / time)) ?
-    `${Math.ceil(medium / time)} 周 (${medium} 回)`:
+    `${Math.ceil(medium / time)} 周 (${medium} 回)` :
     "Cannot fight..."
   _name[2].value = !isNaN(Math.ceil(max / time)) ?
-    `${Math.ceil(max / time)} 周 (${max} 回)`:
+    `${Math.ceil(max / time)} 周 (${max} 回)` :
     "Cannot fight..."
-  _name[3].value = `${boss} (周)`
+  _name[3].value = `${boss} 周`
 }
 
+/**
+ * @param { string } _area
+ * @param { string } _total
+ * @param { string } _textArea
+ * @param { boolean } _isMVP
+ * @param { NodeListOf<Map<string, string>> } listJson
+ */
 function calcFloatExp(
   _area,
   _total,
@@ -90,6 +112,13 @@ function calcFloatExp(
   )
 }
 
+/**
+ *
+ * @param { string } area
+ * @param { string } total
+ * @param { string } textName
+ * @param { string } isMVP
+ */
 function loadJSONForFloat(area, total, textName, isMVP) {
   const jsonPath = BASEPATH + "floatexp.json"
   const request = new XMLHttpRequest()
